@@ -1,5 +1,8 @@
 from pydantic_ai import Agent, RunContext
-from app2.advisor.models import Profile, ReportResult
+from app.advisor.models import Profile, ReportResult
+from dotenv import load_dotenv
+
+load_dotenv()
 
 fitness_agent = Agent(
     'gpt-4o',
@@ -27,4 +30,4 @@ async def get_motivation(ctx: RunContext) -> list[str]:
 
 async def analyze_profile(profile: Profile) -> ReportResult:
     result = await fitness_agent.run("Create a personalized fitness and nutrition plan.", deps=profile)
-    return result.output
+    return result.data
